@@ -32,6 +32,8 @@ public class GitFlowConfig {
     private String hotfixBranchPrefix;
     /** Prefix of the support branch. */
     private String supportBranchPrefix;
+    /** Prefix of the finish branch. */
+    private String finishBranchPrefix;
     /** Prefix of the version tag. */
     private String versionTagPrefix;
     /** Name of the default remote. */
@@ -47,6 +49,7 @@ public class GitFlowConfig {
         this.releaseBranchPrefix = System.getProperty("gitFlowConfig.releaseBranchPrefix", "release/");
         this.hotfixBranchPrefix = System.getProperty("gitFlowConfig.hotfixBranchPrefix", "hotfix/");
         this.supportBranchPrefix = System.getProperty("gitFlowConfig.supportBranchPrefix", "support/");
+        this.finishBranchPrefix = System.getProperty("gitFlowConfig.finishBranchPrefix", "finished/");
         this.versionTagPrefix = System.getProperty("gitFlowConfig.versionTagPrefix", "");
         this.origin = System.getProperty("gitFlowConfig.origin", "origin");
     }
@@ -139,6 +142,21 @@ public class GitFlowConfig {
      */
     public void setSupportBranchPrefix(String supportBranchPrefix) {
         this.supportBranchPrefix = supportBranchPrefix;
+    }
+
+    /**
+     * @return the finishBranchPrefix
+     */
+    public String getFinishBranchPrefix() {
+        return finishBranchPrefix;
+    }
+
+    /**
+     * @param finishBranchPrefix
+     *            the finishBranchPrefix to set
+     */
+    public void setFinishBranchPrefix(String finishBranchPrefix) {
+        this.finishBranchPrefix = finishBranchPrefix;
     }
 
     /**

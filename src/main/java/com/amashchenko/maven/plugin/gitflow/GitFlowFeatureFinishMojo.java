@@ -53,6 +53,14 @@ public class GitFlowFeatureFinishMojo extends AbstractGitFlowMojo {
     private boolean featureSquash = false;
 
     /**
+     * Whether to finish each feature branch to a separate branch.
+     *
+     * @since 1.21.1-SNAPSHOT
+     */
+    @Parameter(property = "separateFinishBranches", defaultValue = "false")
+    private boolean separateFinishBranches = false;
+
+    /**
      * Whether to push to the remote.
      * 
      * @since 1.3.0
@@ -113,6 +121,7 @@ public class GitFlowFeatureFinishMojo extends AbstractGitFlowMojo {
             checkUncommittedChanges();
 
             String featureBranchName = null;
+            String finishBranchName = gitFlowConfig.getDevelopmentBranch();
             if (settings.isInteractiveMode()) {
                 featureBranchName = promptBranchName();
             } else if (StringUtils.isNotBlank(featureBranch)) {
@@ -136,11 +145,17 @@ public class GitFlowFeatureFinishMojo extends AbstractGitFlowMojo {
                 throw new MojoFailureException("Feature branch name to finish is blank.");
             }
 
+            if (separateFinishBranches) {
+                finishBranchName = featureBranchName.replace(gitFlowConfig.getFeatureBranchPrefix(),
+                        gitFlowConfig.getFeatureBranchPrefix() + gitFlowConfig.getFinishBranchPrefix());
+                gitCreateAndCheckout(finishBranchName, featureBranchName);
+            }
+
             // fetch and check remote
             if (fetchRemote) {
                 gitFetchRemoteAndCompareCreate(featureBranchName);
 
-                gitFetchRemoteAndCompareCreate(gitFlowConfig.getDevelopmentBranch());
+                gitFetchRemoteAndCompareCreate(finishBranchName);
             }
 
             // git checkout feature/...
@@ -190,7 +205,7 @@ public class GitFlowFeatureFinishMojo extends AbstractGitFlowMojo {
             }
 
             // git checkout develop
-            gitCheckout(gitFlowConfig.getDevelopmentBranch());
+            gitCheckout(finishBranchName);
 
             if (featureSquash) {
                 // git merge --squash feature/...
@@ -227,7 +242,7 @@ public class GitFlowFeatureFinishMojo extends AbstractGitFlowMojo {
             }
 
             if (pushRemote) {
-                gitPush(gitFlowConfig.getDevelopmentBranch(), false);
+                gitPush(finishBranchName, false);
 
                 if (keepBranch) {
                     gitPush(featureBranchName, false);
