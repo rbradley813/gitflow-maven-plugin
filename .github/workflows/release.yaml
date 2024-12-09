@@ -52,4 +52,5 @@ jobs:
           ./mvnw ${{steps.get_gav.outputs.GROUP_ID}}:${{steps.get_gav.outputs.ARTIFACT_ID}}:${{steps.get_gav.outputs.POM_VERSION}}:release \
               --batch-mode \
               -DfetchRemote=false \
+              -DgitFlowConfig.developmentBranch=master \
               -DversionDigitToIncrement=3
