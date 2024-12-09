@@ -113,8 +113,6 @@
                     <version>${project.version}</version>
                     <configuration>
                         <featureNamePattern>^(?!(((feature|hotfix|bugfix))\/(IKM|AR|IAT|IC|IKMC|IKDT|IKMD|IIA|IKMW|IKMM|TE)-\d+(-[0-9A-Za-z\-]*)*)|main|prod|master|dev).*$</featureNamePattern>
-                        <releaseVersion>FAIL-SNAPSHOT</releaseVersion>
-                        <keepBranch>true</keepBranch>
                         <separateFinishBranches>true</separateFinishBranches>
                         <gitFlowConfig>
                             <developmentBranch>master</developmentBranch>
