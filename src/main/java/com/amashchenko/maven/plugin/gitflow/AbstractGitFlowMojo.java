@@ -1,5 +1,6 @@
 /*
  * Copyright 2014-2024 Aleksandr Mashchenko.
+ * Portions Copyright © 2024-2025 Integrated Knowledge Management (support@ikm.dev)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -551,6 +552,7 @@ public abstract class AbstractGitFlowMojo extends AbstractMojo {
         gitSetConfig("gitflow.prefix.release", gitFlowConfig.getReleaseBranchPrefix());
         gitSetConfig("gitflow.prefix.hotfix", gitFlowConfig.getHotfixBranchPrefix());
         gitSetConfig("gitflow.prefix.support", gitFlowConfig.getSupportBranchPrefix());
+        gitSetConfig("gitflow.prefix.finish", gitFlowConfig.getFinishBranchPrefix());
         gitSetConfig("gitflow.prefix.versiontag", gitFlowConfig.getVersionTagPrefix());
 
         gitSetConfig("gitflow.origin", gitFlowConfig.getOrigin());
