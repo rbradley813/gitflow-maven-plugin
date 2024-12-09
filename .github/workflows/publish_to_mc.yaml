@@ -1,0 +1,55 @@
+name: Publish To Maven Central
+
+run-name: Publish ${{github.event.repository.name}} To Maven Central
+
+on:
+    workflow_dispatch:
+
+jobs:
+    publish-to-mc:
+        name: Publishing to Maven Central
+        runs-on: ubuntu-24.04
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v4
+      
+          - name: Setup Java
+            uses: actions/setup-java@v4
+            with:
+              distribution: 'zulu'
+              java-version: '21'
+              server-id: ossrh
+              server-username: MAVEN_USERNAME
+              server-password: MAVEN_CENTRAL_TOKEN
+              gpg-private-key: ${{secrets.GPG_KEY}}
+              gpg-passphrase: MAVEN_GPG_PASSPHRASE
+
+          - name: Maven Build
+            run: |
+             ./mvnw clean install -U \
+              --batch-mode \
+              -e \
+              -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+              -Dmaven.build.cache.enabled=false \
+              -PcodeQuality
+      
+          - name: Publish To OSSRH (Maven Central Staging)
+            shell: bash
+            run: |
+                ./mvnw deploy -U\
+                    --batch-mode \
+                    -e \
+                    -U \
+                    -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+                    -DskipTests \
+                    -DskipITs \
+                    -Dmaven.main.skip \
+                    -Dmaven.test.skip \
+                    -DrepositoryId=ossrh \
+                    -DrepositoryIdOSSRH='true' \
+                    -PstageOSSRH \
+                    -Dmaven.build.cache.enabled=false
+            env:
+              MAVEN_USERNAME: ${{secrets.OSSRH_TOKEN_USER}}
+              MAVEN_CENTRAL_TOKEN: ${{secrets.OSSRH_TOKEN_PASS}}
+              MAVEN_GPG_PASSPHRASE: ${{secrets.GPG_PASSPHRASE}}
