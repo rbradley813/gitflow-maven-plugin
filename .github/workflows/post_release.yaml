@@ -1,0 +1,21 @@
+name: Post Release Workflow
+
+run-name: Post Release Workflow -- ${{github.event.repository.name}}
+
+on:
+    push:
+        tags: '**'
+
+jobs:
+    post_release_actions:
+        name: Post Release Action -- ${{github.ref_name}}
+        runs-on: ubuntu-24.04
+        steps:
+         - name: IKMDEV Post Release Action
+           uses: ikmdev/maven-post-release-action@main
+           with:
+                github_token: ${{secrets.GITHUB_TOKEN}}
+                ossrh_username: ${{secrets.OSSRH_TOKEN_USER}}
+                ossrh_token: ${{secrets.OSSRH_TOKEN_PASS}}
+                gpg_key: ${{secrets.GPG_KEY}}
+                gpg_passphrase: ${{secrets.GPG_PASSPHRASE}}
