@@ -6,8 +6,6 @@ on:
     workflow_dispatch:
     push:
         tags: '**'
-
-
 jobs:
     post_release_actions:
         name: Post Release Action -- ${{github.ref_name}}
