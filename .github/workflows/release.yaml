@@ -74,14 +74,13 @@ jobs:
       - name: GitFlow Release
         id: gitflow_release
         run: |
-              mvn gitflow:release \
+              ./mvnw gitflow:release \
                     --batch-mode \
                     -DversionDigitToIncrement=${{ steps.configure_version_type.outputs.version_type }} \
                     -DpostReleaseGoals="clean install \
                           --batch-mode \
                           -e \
                           -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
-                          -PcodeQuality,release-enforcement \
                           -Dmaven.build.cache.enabled=false"
     
       - name: Create Release
