@@ -3,7 +3,8 @@ name: Publish To Maven Central
 run-name: Publish ${{github.event.repository.name}} To Maven Central
 
 on:
-    workflow_dispatch:
+    push:
+        tags: '**'
 
 jobs:
     publish-to-mc:
