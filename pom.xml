@@ -22,7 +22,7 @@
     <artifactId>gitflow-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>gitflow-maven-plugin</name>
-    <version>1.21.1-r1-SNAPSHOT</version>
+    <version>1.21.1-r2-SNAPSHOT</version>
 
     <description>The Git-Flow Maven Plugin supports various Git workflows, including Vincent Driessen's successful Git branching model and GitHub Flow. This plugin runs Git and Maven commands from the command line. Supports Eclipse Plugins build with Tycho.</description>
 
@@ -105,29 +105,6 @@
     </reporting>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>${project.artifactId}</artifactId>
-                    <version>${project.version}</version>
-                    <configuration>
-                        <featureNamePattern>^(?!(((feature|hotfix|bugfix))\/(IKM|AR|IAT|IC|IKMC|IKDT|IKMD|IIA|IKMW|IKMM|TE)-\d+(-[0-9A-Za-z\-]*)*)|main|prod|master|dev).*$</featureNamePattern>
-                        <releaseVersion>FAIL-SNAPSHOT</releaseVersion>
-                        <keepBranch>true</keepBranch>
-                        <separateFinishBranches>true</separateFinishBranches>
-                        <gitFlowConfig>
-                            <developmentBranch>master</developmentBranch>
-                            <productionBranch>master</productionBranch>
-                            <featureBranchPrefix>feature/</featureBranchPrefix>
-                            <hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
-                            <supportBranchPrefix>support/</supportBranchPrefix>
-                            <releaseBranchPrefix>release/</releaseBranchPrefix>
-                        </gitFlowConfig>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

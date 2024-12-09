@@ -50,11 +50,11 @@ jobs:
         run: |
           ./mvnw clean install
           ./mvnw ${{steps.get_gav.outputs.GROUP_ID}}:${{steps.get_gav.outputs.ARTIFACT_ID}}:${{steps.get_gav.outputs.POM_VERSION}}:release \
-                    --batch-mode \
-                    -DversionDigitToIncrement=3 \
-                    -DpostReleaseGoals="clean install \
-                          --batch-mode \
-                          -e \
-                          -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
-                          -Dmaven.build.cache.enabled=false"
+              --batch-mode \
+              -DversionDigitToIncrement=3 \
+              -DpostReleaseGoals="clean install \
+                  --batch-mode \
+                  -e \
+                  -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+                  -Dmaven.build.cache.enabled=false"
     
