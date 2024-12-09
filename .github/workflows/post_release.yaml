@@ -3,13 +3,16 @@ name: Post Release Workflow
 run-name: Post Release Workflow -- ${{github.event.repository.name}}
 
 on:
+    workflow_dispatch:
     push:
         tags: '**'
+
 
 jobs:
     post_release_actions:
         name: Post Release Action -- ${{github.ref_name}}
         runs-on: ubuntu-24.04
+        if: contains(github.ref_type, 'tag')
         steps:
          - name: IKMDEV Post Release Action
            uses: ikmdev/maven-post-release-action@main
