@@ -43,15 +43,11 @@ jobs:
               git config user.name "ikmdevops"
               git config user.email devops@ikm.dev
 
-      - name: Build Repo
-        run: |
-          mvn clean install
-    
-    
       - name: GitFlow Release
         id: gitflow_release
         run: |
-              ./mvnw gitflow:release \
+              ./mvnw clean install
+              ./mvnw gitflow:${{steps.get_current_version.outputs.POM_VERSION}}:release \
                     --batch-mode \
                     -DversionDigitToIncrement=3 \
                     -DpostReleaseGoals="clean install \

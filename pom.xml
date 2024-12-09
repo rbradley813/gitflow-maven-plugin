@@ -105,34 +105,7 @@
     </reporting>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>${project.artifactId}</artifactId>
-                    <version>${project.version}</version>
-                    <configuration>
-                        <featureNamePattern>^(?!(((feature|hotfix|bugfix))\/(IKM|AR|IAT|IC|IKMC|IKDT|IKMD|IIA|IKMW|IKMM|TE)-\d+(-[0-9A-Za-z\-]*)*)|main|prod|master|dev).*$</featureNamePattern>
-                        <releaseVersion>FAIL-SNAPSHOT</releaseVersion>
-                        <keepBranch>true</keepBranch>
-                        <separateFinishBranches>true</separateFinishBranches>
-                        <gitFlowConfig>
-                            <developmentBranch>master</developmentBranch>
-                            <productionBranch>master</productionBranch>
-                            <featureBranchPrefix>feature/</featureBranchPrefix>
-                            <hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
-                            <supportBranchPrefix>support/</supportBranchPrefix>
-                            <releaseBranchPrefix>release/</releaseBranchPrefix>
-                        </gitFlowConfig>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
-            <plugin>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>${project.artifactId}</artifactId>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
