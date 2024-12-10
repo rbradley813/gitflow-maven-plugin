@@ -217,8 +217,13 @@ public class GitFlowFeatureFinishMojo extends AbstractGitFlowMojo {
                 Map<String, String> properties = new HashMap<>();
                 properties.put("version", version);
                 properties.put("featureName", featName);
-                // git merge --no-ff feature/...
-                gitMergeNoff(featureBranchName, commitMessages.getFeatureFinishDevMergeMessage(), properties);
+                if (separateFinishBranches) {
+                    // git merge --ff-only feature/...
+                    gitMergeFFOnly(featureBranchName, commitMessages.getFeatureFinishDevMergeMessage(), properties);
+                } else {
+                    // git merge --no-ff feature/...
+                    gitMergeNoff(featureBranchName, commitMessages.getFeatureFinishDevMergeMessage(), properties);
+                }
             }
 
             // maven goals after merge

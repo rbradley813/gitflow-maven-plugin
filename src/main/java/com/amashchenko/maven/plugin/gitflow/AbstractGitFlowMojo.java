@@ -928,15 +928,34 @@ public abstract class AbstractGitFlowMojo extends AbstractMojo {
     }
 
     /**
-     * Executes git merge --squash.
-     * 
+     * Executes git merge --ff-only.
+     *
      * @param branchName
      *            Branch name to merge.
+     * @param message
+     *            Merge commit message.
+     * @param messageProperties
+     *            Properties to replace in message.
      * @throws MojoFailureException
      *             If command line execution returns false code.
      * @throws CommandLineException
      *             If command line execution fails.
      */
+    protected void gitMergeFFOnly(final String branchName, final String message, final Map<String, String> messageProperties)
+            throws MojoFailureException, CommandLineException {
+        gitMerge(branchName, false, false, true, message, messageProperties);
+    }
+
+        /**
+         * Executes git merge --squash.
+         *
+         * @param branchName
+         *            Branch name to merge.
+         * @throws MojoFailureException
+         *             If command line execution returns false code.
+         * @throws CommandLineException
+         *             If command line execution fails.
+         */
     protected void gitMergeSquash(final String branchName) throws MojoFailureException, CommandLineException {
         getLog().info("Squashing '" + branchName + "' branch.");
         executeGitCommand("merge", "--squash", branchName);
