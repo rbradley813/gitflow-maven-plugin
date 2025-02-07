@@ -1,6 +1,6 @@
-name: Post Release Workflow
+name: Post Build Workflow
 
-run-name: Post Release Workflow -- ${{github.event.repository.name}}
+run-name: Post Build Workflow -- ${{github.event.repository.name}}
 
 on:
     workflow_dispatch:
@@ -8,12 +8,12 @@ on:
         tags: '**'
 jobs:
     post_release_actions:
-        name: Post Release Action -- ${{github.ref_name}}
+        name: Post Build Action -- ${{github.ref_name}}
         runs-on: ubuntu-24.04
         if: contains(github.ref_type, 'tag')
         steps:
-         - name: IKMDEV Post Release Action
-           uses: ikmdev/maven-post-release-action@main
+         - name: IKMDEV Post Build Action
+           uses: ikmdev/maven-post-build-action@v2
            with:
                 github_token: ${{secrets.GITHUB_TOKEN}}
                 ossrh_username: ${{secrets.OSSRH_TOKEN_USER}}
