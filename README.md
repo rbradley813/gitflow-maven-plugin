@@ -1,7 +1,5 @@
 # Git-Flow Maven Plugin
 
-[![verify](https://github.com/aleksandr-m/gitflow-maven-plugin/workflows/verify/badge.svg)](https://github.com/aleksandr-m/gitflow-maven-plugin/actions)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.amashchenko.maven.plugin/gitflow-maven-plugin/badge.svg?subject=Maven%20Central)](https://maven-badges.herokuapp.com/maven-central/com.amashchenko.maven.plugin/gitflow-maven-plugin/)
 [![License](https://img.shields.io/badge/License-Apache%20License%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 The Maven plugin that supports various Git workflows, including Vincent Driessen's [successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/) and [GitHub Flow](https://guides.github.com/introduction/flow/).
@@ -21,9 +19,9 @@ The plugin is available from Maven Central.
     <build>
         <plugins>
             <plugin>
-                <groupId>com.amashchenko.maven.plugin</groupId>
+                <groupId>dev.ikm</groupId>
                 <artifactId>gitflow-maven-plugin</artifactId>
-                <version>1.21.0</version>
+                <version>1.21.1-r4</version>
                 <configuration>
                     <!-- optional configuration -->
                 </configuration>
