@@ -57,24 +57,11 @@
         <developerConnection>scm:git:git@github.com:ikmdev/gitflow-maven-plugin.gitt</developerConnection>
     </scm>
 
-    <distributionManagement>
-        <repository>
-            <id>sonatype-nexus-staging</id>
-            <name>Nexus Release Repository</name>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-        <snapshotRepository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Sonatype Nexus Snapshots</name>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
-
     <properties>
         <java.version>8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-plugin-plugin.version>3.9.0</maven-plugin-plugin.version>
-        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+        <sonatype.central.plugin.version>0.8.0</sonatype.central.plugin.version> <!-- Property for deploying to Maven Central -->
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
     </properties>
 
@@ -171,11 +158,12 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- This plugin stage the artifacts to the Central Portal Repository -->
             <plugin>
-					<groupId>org.sonatype.plugins</groupId>
-					<artifactId>nexus-staging-maven-plugin</artifactId>
-					<version>${nexus-staging-maven-plugin.version}</version>
-				</plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>${sonatype.central.plugin.version}</version>
+            </plugin>
         </plugins>
     </build>
 
@@ -360,17 +348,16 @@
 							</gpgArguments>
 						</configuration>
 					</plugin>
-					<plugin>
-						<groupId>org.sonatype.plugins</groupId>
-						<artifactId>nexus-staging-maven-plugin</artifactId>
-						<version>${nexus-staging-maven-plugin.version}</version>
-						<extensions>true</extensions>
-						<configuration>
-							<serverId>ossrh</serverId>
-							<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-							<autoReleaseAfterClose>false</autoReleaseAfterClose>
-						</configuration>
-					</plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                            <waitUntil>published</waitUntil>
+                        </configuration>
+                    </plugin>
 				</plugins>
 			</build>
 		</profile>
