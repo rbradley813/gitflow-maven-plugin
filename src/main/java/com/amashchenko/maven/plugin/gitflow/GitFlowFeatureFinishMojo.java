@@ -35,7 +35,7 @@ public class GitFlowFeatureFinishMojo extends AbstractGitFlowMojo {
 
     /** Whether to keep feature branch after finish. */
     @Parameter(property = "keepBranch", defaultValue = "false")
-    private boolean keepBranch = false;
+    protected boolean keepBranch = false;
 
     /**
      * Whether to skip calling Maven test goal before merging the branch.
@@ -59,7 +59,7 @@ public class GitFlowFeatureFinishMojo extends AbstractGitFlowMojo {
      * @since 1.21.1-SNAPSHOT
      */
     @Parameter(property = "separateFinishBranches", defaultValue = "false")
-    private boolean separateFinishBranches = false;
+    protected boolean separateFinishBranches = false;
 
     /**
      * Whether to push to the remote.
@@ -149,7 +149,9 @@ public class GitFlowFeatureFinishMojo extends AbstractGitFlowMojo {
             if (separateFinishBranches) {
                 finishBranchName = featureBranchName.replace(gitFlowConfig.getFeatureBranchPrefix(),
                         gitFlowConfig.getFeatureBranchPrefix() + gitFlowConfig.getFinishBranchPrefix());
-                gitCreateAndCheckout(finishBranchName, featureBranchName);
+                if (!gitCheckBranchExists(finishBranchName)) {
+                    gitCreateAndCheckout(finishBranchName, featureBranchName);
+                }
             }
 
             // fetch and check remote
