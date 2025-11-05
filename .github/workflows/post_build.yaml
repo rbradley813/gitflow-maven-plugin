@@ -1,6 +1,6 @@
 name: Post Build Workflow
 
-run-name: Post Build Workflow -- ${{github.event.repository.name}}
+run-name: Post Build Workflow -- ${{github.ref_name}}
 
 on:
     workflow_dispatch:
@@ -25,7 +25,7 @@ jobs:
              nexus_repo_url: ${{secrets.NEXUS_URL}}
              nexus_repo_username: ${{secrets.NEXUS_USER}}
              nexus_repo_password: ${{secrets.NEXUS_PASSWORD}}
-             branch_name: ${{github.event.workflow_run.head_branch}}
+             branch_name: ${{github.ref_name}}
              github_token: ${{secrets.GITHUB_TOKEN}}
              maven_central_username: ${{secrets.MC_SECRET_USERNAME}}
              maven_central_password: ${{secrets.MC_SECRET_PASSWORD}}
