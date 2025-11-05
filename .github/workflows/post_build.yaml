@@ -12,6 +12,13 @@ jobs:
         runs-on: ubuntu-24.04
         if: contains(github.ref_type, 'tag')
         steps:
+         - name: Checkout Repository
+           uses: actions/checkout@v4
+           with:
+             repository: ${{github.event.workflow_run.head_repository.full_name}}
+             ref: ${{github.event.workflow_run.head_branch}}
+             fetch-depth: 0
+             
          - name: IKMDEV Post Build Action
            uses: ikmdev/maven-post-build-action@v3.3.0
            with:
